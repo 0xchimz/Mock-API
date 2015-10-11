@@ -34,6 +34,21 @@ app.post('/login', function (request, response) {
   response.json(user)
 })
 
+app.post('/register', function (request, response) {
+  if (request.body === {}) {
+    return response.status(400).send('Some field is empty.')
+  }
+  var newUser = {
+    email: request.body.email,
+    password: request.body.password,
+    firstname: request.body.firstname,
+    lastname: request.body.lastname,
+    address: request.body.address,
+    phonenumber: request.body.phonenumber
+  }
+  response.json(newUser)
+})
+
 var server = app.listen(3000, function () {
   var host = server.address().address
   var port = server.address().port
