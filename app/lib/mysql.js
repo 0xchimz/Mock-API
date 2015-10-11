@@ -5,7 +5,7 @@ var connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: 'Cc150735',
-  database: 'Mock-API'
+  database: 'mockApi'
 })
 
 connection.connect(function (error) {
