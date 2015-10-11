@@ -1,5 +1,7 @@
 var express = require('express')
 var bodyParser = require('body-parser')
+var md5 = require('md5')
+var sha256 = require('sha256')
 var mysql = require('./lib/mysql')
 
 var app = express()
@@ -37,7 +39,11 @@ app.post('/login', function (request, response) {
       if (!res[0]) {
         return response.json({'status': 'error', 'message': 'username or password is invalid'})
       }
-      response.json(res)
+      var currentDate = new Date()
+      var authenticate = {
+        access_token: '==' + sha256(md5(res.email + currentDate + 'FECS')) + '.' + sha256(currentDate)
+      }
+      response.json(authenticate)
     })
 })
 
