@@ -4,7 +4,7 @@ var q = require('q')
 var connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: '',
+  password: 'Cc150735',
   database: 'Mock-API'
 })
 
