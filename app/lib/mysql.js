@@ -22,7 +22,7 @@ module.exports = {
   login: login
 }
 
-function register (data, callback) {
+function register (data) {
   var deferred = q.defer()
   connection.query('INSERT INTO user SET ?', data, function (error, response) {
     console.log('INSERT TO DB')

@@ -61,12 +61,16 @@ app.post('/register', function (request, response) {
   }
   mysql.findUser(newUser).then(
     function (res) {
-      if (res) {
+      if (!res[0]) {
+        mysql.register(newUser).then(
+          function (res) {
+            response.json({'status': 'success', 'message': 'register complete'})
+          }
+        )
+      } else {
+        response.json({'status': 'error', 'message': 'same username'})
       }
     })
-// mysql.register(newUser, function (error, res) {
-//   response.json(res)
-// })
 })
 
 var server = app.listen(3000, function () {
