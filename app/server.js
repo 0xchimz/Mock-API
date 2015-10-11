@@ -31,7 +31,14 @@ app.post('/login', function (request, response) {
     email: request.body.email,
     password: request.body.password
   }
-  response.json(user)
+  mysql.login(user).then(
+    function (res) {
+      console.log(res)
+      if (!res[0]) {
+        return response.json({'status': 'error', 'message': 'username or password is invalid'})
+      }
+      response.json(res)
+    })
 })
 
 app.post('/register', function (request, response) {
@@ -46,7 +53,14 @@ app.post('/register', function (request, response) {
     address: request.body.address,
     phonenumber: request.body.phonenumber
   }
-  response.json(newUser)
+  mysql.findUser(newUser).then(
+    function (res) {
+      if (res) {
+      }
+    })
+// mysql.register(newUser, function (error, res) {
+//   response.json(res)
+// })
 })
 
 var server = app.listen(3000, function () {
