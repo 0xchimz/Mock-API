@@ -73,6 +73,46 @@ app.post('/register', function (request, response) {
     })
 })
 
+app.get('/product/:pId', function (request, response) {
+  if (request.params.pId === 'KIS9987') {
+    response.json(
+      {
+        'status': 'success',
+        'data': {
+          'serialNumber': 'KIS9987',
+          'name': 'JL Bed',
+          'price': '999.89',
+          'description': 'This is the best.',
+          'category': {
+            'id': 1,
+            'name': 'sofabed'
+          }
+        }
+      })
+  }else if (request.params.pId === 'KIS9988') {
+    response.json(
+      {
+        'status': 'success',
+        'data': {
+          'serialNumber': 'KIS9988',
+          'name': 'iTable',
+          'price': '999.99',
+          'description': 'This is the best.',
+          'category': {
+            'id': 2,
+            'name': 'table'
+          }
+        }
+      })
+  } else {
+    response.json(
+      {
+        'status': 'error',
+        'message': 'Product not found.'
+      })
+  }
+})
+
 var server = app.listen(3000, function () {
   var host = server.address().address
   var port = server.address().port
