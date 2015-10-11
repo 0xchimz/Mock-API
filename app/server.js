@@ -26,6 +26,7 @@ app.get('/', function (request, response) {
 })
 
 app.post('/login', function (request, response) {
+  console.log(request.body)
   if (!request.body.email || !request.body.password) {
     return response.status(400).send('Email or Password is empty')
   }
