@@ -58,7 +58,8 @@ if **productID = KIS9987**
 ```
 {
   'status': 'success',
-    'data': {
+    'data': [{
+      'id': '1',
       'serialNumber': 'KIS9987',
       'name': 'JL Bed',
       'price': '999.89',
@@ -67,14 +68,15 @@ if **productID = KIS9987**
         'id': 1,
         'name': 'sofabed'
       }
-    }
+    }]
 }
 ```
 or if **productID = KIS9988**
 ```
 {
   'status': 'success',
-  'data': {
+  'data': [{
+    'id': '1',
     'serialNumber': 'KIS9988',
     'name': 'iTable',
     'price': '999.99',
@@ -83,7 +85,25 @@ or if **productID = KIS9988**
       'id': 2,
       'name': 'table'
     }
-  }
+  }]
+}
+```
+or if **productID = KIS9988**
+```
+{
+  'status': 'success',
+  'data': [{
+    'id': 1,
+    'serialNumber': 'KIS9989',
+    'name': 'Nara Bed',
+    'price': 1090,
+    'description': '-',
+    'dimensionDescription': '-',
+    'category': {
+      'id': 1,
+      'name': 'sofabed'
+    }
+  }]
 }
 ```
 
@@ -92,5 +112,54 @@ or if **productID = KIS9988**
 {
   'status': 'error',
   'message': 'Product not found.'
+}
+```
+
+### `get ./category/:CategoryName`
+**request**:<br>
+* <b>String</b> CategoryName
+
+**response**:<br>
+if **CategoryName = sofabed**
+```
+{
+  'status': 'success',
+  'data': [
+    {
+      'id': 1,
+      'serialNumber': 'KIS9987',
+      'name': 'JL bed',
+      'price': 999.89,
+      'description': 'This is the best.',
+      'dimensionDescription': '',
+      'category': {
+        'id': 1,
+        'name': 'sofabed'
+      }
+    },
+    {
+      'id': 2,
+      'serialNumber': 'KIS9989',
+      'name': 'Nara Bed',
+      'price': 1090,
+      'description': '-',
+      'dimensionDescription': '-',
+      'category': {
+        'id': 1,
+        'name': 'sofabed'
+      }
+    }
+  ]
+}
+```
+if **CategoryName = table**<br>
+return furniture in table category<br>
+if **CategoryName = all**<br>
+return all furniture in all category<br>
+**else**<br>
+```
+{
+  'status': 'error',
+  'message': 'CategoryName not found.'
 }
 ```
