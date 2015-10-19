@@ -36,15 +36,15 @@ app.post('/login', function (request, response) {
   }
   mysql.login(user).then(
     function (res) {
-      console.log(res)
-      if (!res[0]) {
-        return response.json({'status': 'error', 'message': 'username or password is invalid'})
+      console.log(res.length)
+      if (res.length === 0) {
+        return response.json({'status': 'error', 'message': 'username or password is incorrent'})
       }
       var currentDate = new Date()
       var authenticate = {
         access_token: '==' + sha256(md5(res.email + currentDate + 'FECS')) + '.' + sha256(currentDate)
       }
-      response.json(authenticate)
+      return response.json(authenticate)
     })
 })
 
@@ -73,37 +73,161 @@ app.post('/register', function (request, response) {
       }
     })
 })
+app.get('/category/:CategoryName', function (request, response) {
+  if (request.params.CategoryName === 'sofabed') {
+    response.json(
+      {
+        'status': 'success',
+        'data': [
+          {
+            'id': 1,
+            'serialNumber': 'KIS9987',
+            'name': 'JL bed',
+            'price': 999.89,
+            'description': 'This is the best.',
+            'dimensionDescription': '',
+            'category': {
+              'id': 1,
+              'name': 'sofabed'
+            }
+          },
+          {
+            'id': 2,
+            'serialNumber': 'KIS9989',
+            'name': 'Nara Bed',
+            'price': 1090,
+            'description': '-',
+            'dimensionDescription': '-',
+            'category': {
+              'id': 1,
+              'name': 'sofabed'
+            }
+          }
+        ]
+      })
+  }else if (request.params.CategoryName === 'table') {
+    response.json(
+      {
+        'status': 'success',
+        'data': [
+          {
+            'id': 1,
+            'serialNumber': 'KIS9988',
+            'name': 'iTable',
+            'price': '999.99',
+            'description': 'This is the best.',
+            'category': {
+              'id': 2,
+              'name': 'table'
+            }
+          }
+        ]
+      })
+  } else if (request.params.CategoryName === 'all') {
+    response.json(
+      {
+        'status': 'success',
+        'data': [
+          {
+            'id': 1,
+            'serialNumber': 'KIS9987',
+            'name': 'JL bed',
+            'price': 999.89,
+            'description': 'This is the best.',
+            'dimensionDescription': '',
+            'category': {
+              'id': 1,
+              'name': 'sofabed'
+            }
+          },
+          {
+            'id': 2,
+            'serialNumber': 'KIS9988',
+            'name': 'iTable',
+            'price': '999.99',
+            'description': 'This is the best.',
+            'category': {
+              'id': 2,
+              'name': 'table'
+            }
+          },
+          {
+            'id': 3,
+            'serialNumber': 'KIS9989',
+            'name': 'Nara Bed',
+            'price': 1090,
+            'description': '-',
+            'dimensionDescription': '-',
+            'category': {
+              'id': 1,
+              'name': 'sofabed'
+            }
+          }
+        ]
+      })
+  } else {
+    response.json(
+      {
+        'status': 'error',
+        'message': 'CategoryName not found.'
+      })
+  }
+})
 
 app.get('/product/:pId', function (request, response) {
   if (request.params.pId === 'KIS9987') {
     response.json(
       {
         'status': 'success',
-        'data': {
-          'serialNumber': 'KIS9987',
-          'name': 'JL Bed',
-          'price': '999.89',
-          'description': 'This is the best.',
-          'category': {
+        'data': [
+          {
             'id': 1,
-            'name': 'sofabed'
+            'serialNumber': 'KIS9987',
+            'name': 'JL Bed',
+            'price': '999.89',
+            'description': 'This is the best.',
+            'category': {
+              'id': 1,
+              'name': 'sofabed'
+            }
           }
-        }
+        ]
       })
   }else if (request.params.pId === 'KIS9988') {
     response.json(
       {
         'status': 'success',
-        'data': {
-          'serialNumber': 'KIS9988',
-          'name': 'iTable',
-          'price': '999.99',
-          'description': 'This is the best.',
-          'category': {
-            'id': 2,
-            'name': 'table'
+        'data': [
+          {
+            'id': 1,
+            'serialNumber': 'KIS9988',
+            'name': 'iTable',
+            'price': '999.99',
+            'description': 'This is the best.',
+            'category': {
+              'id': 2,
+              'name': 'table'
+            }
           }
-        }
+        ]
+      })
+  }else if (request.params.pId === 'KIS9989') {
+    response.json(
+      {
+        'status': 'success',
+        'data': [
+          {
+            'id': 1,
+            'serialNumber': 'KIS9989',
+            'name': 'Nara Bed',
+            'price': 1090,
+            'description': '-',
+            'dimensionDescription': '-',
+            'category': {
+              'id': 1,
+              'name': 'sofabed'
+            }
+          }]
       })
   } else {
     response.json(
